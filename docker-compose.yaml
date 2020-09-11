@@ -11,3 +11,11 @@ services:
       - "5432:5432"
     volumes:
       - /home/pgsql_local/beats:/var/lib/postgresql/data
+
+  codebeatapi:
+    build:
+      context: ./
+    depends_on:
+      - db-local
+    ports:
+      - "3000:3000"

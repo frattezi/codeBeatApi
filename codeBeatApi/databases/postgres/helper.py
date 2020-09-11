@@ -6,7 +6,7 @@ class PGHelper(object):
         if not hasattr(self, "conn"):
             self.conn = self._connect_to_database()
         if not hasattr(self, "cur"):
-            self.cur = self.con.cursor()
+            self.cur = self.conn.cursor()
 
     def __del__(self):
         self.conn.close()
@@ -17,8 +17,10 @@ class PGHelper(object):
         """
         try:
             self.cur.execute(command)
-            self.con.commit()
+            self.conn.commit()
+            result = self.cur.fetchall()
             print("Successfully executed command")
+            return result
         except Exception as e:
             print(e)
 
